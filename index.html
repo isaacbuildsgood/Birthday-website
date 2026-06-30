@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hppdyyy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2, #d4a574);
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2, #d4a574);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        #intro-text {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: #ff6b6b;
+            margin-bottom: 40px;
+        }
+        #line1, #line2 {
+            margin-bottom: 20px;
+        }
+        #continue-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+        #continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        #main-content {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 120px 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4em;
+            color: #ff6b6b;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+        .hero p {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        /* Balloons */
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #4ecdc4);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: float 6s ease-in-out infinite;
+        }
+        .balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .balloon:nth-child(2) { left: 20%; animation-delay: 1s; background: radial-gradient(circle at 30% 30%, #ffe66d, #ff6b6b); }
+        .balloon:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .balloon:nth-child(4) { left: 70%; animation-delay: 3s; background: radial-gradient(circle at 30% 30%, #4ecdc4, #ffe66d); }
+        .balloon:nth-child(5) { left: 80%; animation-delay: 4s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); }
+            50% { transform: translateY(50vh) rotate(180deg); }
+        }
+        /* Hearts */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            transform: rotate(-45deg);
+            animation: floatHeart 8s ease-in-out infinite;
+        }
+        .heart:before, .heart:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 50%;
+        }
+        .heart:before { top: -10px; left: 0; }
+        .heart:after { top: 0; left: 10px; }
+        .heart:nth-child(6) { left: 15%; animation-delay: 0s; }
+        .heart:nth-child(7) { left: 85%; animation-delay: 2s; }
+        .heart:nth-child(8) { left: 50%; animation-delay: 4s; }
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(100vh) rotate(-45deg) scale(1); }
+            50% { transform: translateY(50vh) rotate(-45deg) scale(1.2); }
+        }
+        /* Message Section */
+        .message {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 50px 40px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            text-align: center;
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+        /* Quotes Carousel */
+        .quotes {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .quote {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #ff6b6b;
+            opacity: 0;
+            transition: opacity 1s ease;
+            position: absolute;
+            width: 100%;
+            left: 0;
+        }
+        .quote.active {
+            opacity: 1;
+        }
+        #quote-container {
+            position: relative;
+            height: 100px;
+        }
+        /* Gallery */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .gallery img {
+            width: calc(33.333% - 20px);
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        /* Timeline */
+        .timeline {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        .timeline h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .timeline-item .year {
+            font-weight: bold;
+            width: 100px;
+            color: #ff6b6b;
+        }
+        .timeline-item .description {
+            flex: 1;
+        }
+        /* Wishes */
+        .wishes {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .wishes textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        .wishes button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        .wishes button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        /* Surprise */
+        .surprise {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .surprise button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ffe66d, #ffd93d);
+            color: #333;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 230, 109, 0.3);
+        }
+        .surprise button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 230, 109, 0.4);
+        }
+        .surprise-message {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #ff6b6b;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Virtual Gift */
+        .gift {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .gift h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        .gift button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ffe66d, #ffd93d);
+            color: #333;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 230, 109, 0.3);
+        }
+        .gift button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 230, 109, 0.4);
+        }
+        .gift-reveal {
+            display: none;
+            margin-top: 20px;
+        }
+        .heart-gift {
+            font-size: 4em;
+            animation: heartPulse 1s ease-in-out infinite;
+        }
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.8);
+            margin-top: 50px;
+            border-radius: 20px 20px 0 0;
+        }
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: fall 3s linear infinite;
+        }
+        .confetti-piece:nth-child(2n) { background: #4ecdc4; }
+        .confetti-piece:nth-child(3n) { background: #ffe66d; }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+        /* Heartbeat */
+        .heartbeat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2em;
+            opacity: 0.6;
+            animation: heartbeat 2s ease-in-out infinite;
+            z-index: 10;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5em; }
+            .gallery img { width: calc(50% - 20px); }
+            .timeline-item { flex-direction: column; align-items: flex-start; }
+            .timeline-item .year { width: auto; margin-bottom: 10px; }
+            #intro-text { font-size: 2em; }
+            .quote { font-size: 1.2em; }
+            #quote-container { height: 120px; }
+            .heart-gift { font-size: 3em; }
+            .heartbeat { font-size: 1.5em; bottom: 10px; right: 10px; }
+            footer { font-size: 1.2em; padding: 30px 20px; }
+        }
+        /* Music Button */
+        #music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        #music-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="intro">
+        <div id="intro-text">
+            <div id="line1"></div>
+            <div id="line2"></div>
+        </div>
+    </div>
+    <div id="main-content">
+        <div class="container">
+        <section class="hero">
+            <h1>Happy Birthday Lora 💖</h1>
+            <p>Today you turn a new year, and my love for you only grows deeper. Here's to celebrating you,mama.</p>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="heart"></div>
+            <div class="heart"></div>
+            <div class="heart"></div>
+        </section>
+
+        <section class="message">
+            <p>Lora, icel, I find myself reflecting on how lucky I am to have you in my life. Your smile lights up my world, your laughter is my favorite sound omdss, and your love for me irrespective of the fact that i can be annoying and impatience sometimes makes every day feel like a dream. I cherish every moment we've shared and look forward to all the ones ahead. Happy Birthday, my love. You mean the world to me. I Love you mehn 💕</p>
+        </section>
+
+        <section class="quotes">
+            <div id="quote-container">
+                <p class="quote" id="quote1">"Love is not about how many days, months, or years you have been together. Love is about how much you love each other every single day."</p>
+                <p class="quote" id="quote2">"You are my today and all of my tomorrows." – Leo Christopher</p>
+                <p class="quote" id="quote3">"In your eyes, I found my home." – Unknown</p>
+                <p class="quote" id="quote4">"Every love story is beautiful, but ours is my favorite." – Unknown</p>
+            </div>
+        </section>
+
+        <section class="gallery">
+            <img src="image/your-elegance.jpeg" alt="yourelegance">
+            <img src="image/mystery-you.jpeg" alt="mysteryyou">
+            <img src="image/late-night-calls.jpeg" alt="latenightcalls">
+            <img src="image/us.jpeg" alt="still">
+        </section>
+
+        <section class="timeline">
+            <h2>Our Love Story</h2>
+            <div class="timeline-item">
+                <div class="year">The Day We Met</div>
+                <div class="description">We met at Healing Streams when i came to see you. <br>
+                    From that moment Lora, something about you stayed with me.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="year">Growing Closer</div>
+                <div class="description">WE started talking more, learning each other's <br>
+                    hearts, and slowly becoming something special.<br>
+                    (Lol i remembered when i made you missed dinner because you were on a call with me, our first one hour call though)</div>
+            </div>
+            <div class="timeline-item">
+                <div class="year">First Kiss(ITPLC)</div>
+                <div class="description">Our First kiss at ITPLC, very simple, maybe a bit unexpected from your ends and unforgettable.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="year">Still Writing Our story</div>
+                <div class="description">No rush nor pressured, just two hearts choosing each other one day at a timeeeeeeee.</div>
+        </section>
+        <section class="surprise">
+            <button onclick="showSurprise()">Click for a Surprise!</button>
+            <div id="surprise-message" class="surprise-message">
+                💖 My love, every day with you feels like a new adventure. You inspire me, you make me laugh, and aside the H.S you are the best thing that has ever happened to me mehn. I promise to love you more with each passing day. Happy Birthday, Baby. 💖
+            </div>
+        </section>
+
+        <section class="gift">
+            <h2>Your Virtual Gift 🎁</h2>
+            <button onclick="openGift()">Open Gift</button>
+            <div id="gift-reveal" class="gift-reveal">
+                <div class="heart-gift">❤️</div>
+                <p>My love for you is endless. Happy Birthday, my Woman, I loveeeee Youuuu 💕</p>
+            </div>
+        </section>
+
+        <footer>
+            Forever yours, <br>
+            Isaac❤️
+           </footer>
+    </div>
+
+    <div class="confetti" id="confetti"></div>
+
+    <div class="heartbeat">❤️</div>
+
+    <audio id="bg-music" loop>
+        <source src="audio/love.mp3" type="audio/mpeg">
+        <!-- Fallback: Your romantic music -->
+    </audio>
+    <button id="music-btn" onclick="toggleMusic()">🔊 Play Music</button>
+    </div>
+
+    <script>
+        // Typewriter effect
+        function typeWriter(text, element, callback) {
+            let i = 0;
+            element.textContent = '';
+            const interval = setInterval(() => {
+                element.textContent += text[i];
+                i++;
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    if (callback) callback();
+                }
+            }, 100);
+        }
+
+        // On load
+        window.onload = function() {
+            typeWriter("Happy Birthday, My Love…", document.getElementById('line1'), () => {
+                setTimeout(() => {
+                    typeWriter("Today is all about you.", document.getElementById('line2'), () => {
+                        const btn = document.createElement('button');
+                        btn.id = 'continue-btn';
+                        btn.textContent = 'Click to Continue ❤️';
+                        btn.onclick = () => {
+                            const intro = document.getElementById('intro');
+                            const main = document.getElementById('main-content');
+                            intro.style.opacity = '0';
+                            setTimeout(() => {
+                                intro.style.display = 'none';
+                                main.style.display = 'block';
+                                setTimeout(() => {
+                                    main.style.opacity = '1';
+                                    // Start music
+                                    const audio = document.getElementById('bg-music');
+                                    audio.play();
+                                    // Confetti
+                                    createConfetti();
+                                    // Start quotes carousel
+                                    showQuote(0);
+                                    setInterval(nextQuote, 6000);
+                                }, 100);
+                            }, 1000);
+                        };
+                        document.getElementById('intro').appendChild(btn);
+                    });
+                }, 2000);
+            });
+        };
+
+        // Continue button
+        // Handled in the callback when created
+
+        // Confetti effect
+        function createConfetti() {
+            const confetti = document.getElementById('confetti');
+            confetti.innerHTML = ''; // Clear existing
+            for (let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.animationDelay = Math.random() * 3 + 's';
+                confetti.appendChild(piece);
+            }
+        }
+
+        // Toggle music
+        let isPlaying = false;
+        const audio = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.textContent = '🔊 Play Music';
+            } else {
+                audio.play();
+                musicBtn.textContent = '🔇 Mute Music';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Show surprise
+        function showSurprise() {
+            const message = document.getElementById('surprise-message');
+            message.style.display = 'block';
+        }
+
+        // Open virtual gift
+        function openGift() {
+            const reveal = document.getElementById('gift-reveal');
+            reveal.style.display = 'block';
+        }
+
+        // Quotes Carousel
+        let currentQuote = 0;
+        const quotes = document.querySelectorAll('.quote');
+        function showQuote(index) {
+            quotes.forEach((quote, i) => {
+                quote.classList.remove('active');
+            });
+            quotes[index].classList.add('active');
+        }
+        function nextQuote() {
+            currentQuote = (currentQuote + 1) % quotes.length;
+            showQuote(currentQuote);
+        }
+    </script>
+</body>
+</html>
